@@ -20,6 +20,14 @@
 		C70A48402024826300140892 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70A483F2024826300140892 /* MainViewModel.swift */; };
 		C70A48432024832900140892 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70A48422024832900140892 /* AppCoordinator.swift */; };
 		C70A48452024835700140892 /* MainNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70A48442024835700140892 /* MainNavigator.swift */; };
+		C70A484A2024885600140892 /* YellowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70A48492024885600140892 /* YellowViewController.swift */; };
+		C70A484C2024886800140892 /* YellowViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70A484B2024886800140892 /* YellowViewModel.swift */; };
+		C70A484E202488BD00140892 /* YellowNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70A484D202488BD00140892 /* YellowNavigator.swift */; };
+		C70A48512024897300140892 /* GreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70A48502024897300140892 /* GreenViewController.swift */; };
+		C70A48532024899300140892 /* GreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70A48522024899300140892 /* GreenViewModel.swift */; };
+		C70A4855202489A600140892 /* GreenNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70A4854202489A600140892 /* GreenNavigator.swift */; };
+		C70A4858202489D800140892 /* GreenCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70A4857202489D800140892 /* GreenCoordinator.swift */; };
+		C70A485A20248A5A00140892 /* UIViewController+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70A485920248A5A00140892 /* UIViewController+Utils.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,6 +58,14 @@
 		C70A483F2024826300140892 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		C70A48422024832900140892 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		C70A48442024835700140892 /* MainNavigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainNavigator.swift; sourceTree = "<group>"; };
+		C70A48492024885600140892 /* YellowViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YellowViewController.swift; sourceTree = "<group>"; };
+		C70A484B2024886800140892 /* YellowViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YellowViewModel.swift; sourceTree = "<group>"; };
+		C70A484D202488BD00140892 /* YellowNavigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YellowNavigator.swift; sourceTree = "<group>"; };
+		C70A48502024897300140892 /* GreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GreenViewController.swift; sourceTree = "<group>"; };
+		C70A48522024899300140892 /* GreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GreenViewModel.swift; sourceTree = "<group>"; };
+		C70A4854202489A600140892 /* GreenNavigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GreenNavigator.swift; sourceTree = "<group>"; };
+		C70A4857202489D800140892 /* GreenCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GreenCoordinator.swift; sourceTree = "<group>"; };
+		C70A485920248A5A00140892 /* UIViewController+Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Utils.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -151,6 +167,8 @@
 			children = (
 				C70A4841202482F700140892 /* coordinator */,
 				C70A483E2024823900140892 /* main */,
+				C70A48482024883000140892 /* yellow */,
+				C70A484F2024895E00140892 /* green */,
 			);
 			path = presentation;
 			sourceTree = "<group>";
@@ -158,6 +176,7 @@
 		C70A483520247F2300140892 /* extensions */ = {
 			isa = PBXGroup;
 			children = (
+				C70A485920248A5A00140892 /* UIViewController+Utils.swift */,
 				C70A483620247F4500140892 /* GlobalFunctions.swift */,
 			);
 			path = extensions;
@@ -166,6 +185,7 @@
 		C70A483E2024823900140892 /* main */ = {
 			isa = PBXGroup;
 			children = (
+				C70A48442024835700140892 /* MainNavigator.swift */,
 				C70A481020247D3800140892 /* MainViewController.swift */,
 				C70A483F2024826300140892 /* MainViewModel.swift */,
 			);
@@ -175,10 +195,38 @@
 		C70A4841202482F700140892 /* coordinator */ = {
 			isa = PBXGroup;
 			children = (
+				C70A4856202489CF00140892 /* green */,
 				C70A48422024832900140892 /* AppCoordinator.swift */,
-				C70A48442024835700140892 /* MainNavigator.swift */,
 			);
 			path = coordinator;
+			sourceTree = "<group>";
+		};
+		C70A48482024883000140892 /* yellow */ = {
+			isa = PBXGroup;
+			children = (
+				C70A48492024885600140892 /* YellowViewController.swift */,
+				C70A484B2024886800140892 /* YellowViewModel.swift */,
+				C70A484D202488BD00140892 /* YellowNavigator.swift */,
+			);
+			path = yellow;
+			sourceTree = "<group>";
+		};
+		C70A484F2024895E00140892 /* green */ = {
+			isa = PBXGroup;
+			children = (
+				C70A48502024897300140892 /* GreenViewController.swift */,
+				C70A48522024899300140892 /* GreenViewModel.swift */,
+				C70A4854202489A600140892 /* GreenNavigator.swift */,
+			);
+			path = green;
+			sourceTree = "<group>";
+		};
+		C70A4856202489CF00140892 /* green */ = {
+			isa = PBXGroup;
+			children = (
+				C70A4857202489D800140892 /* GreenCoordinator.swift */,
+			);
+			path = green;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -283,12 +331,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C70A484A2024885600140892 /* YellowViewController.swift in Sources */,
+				C70A4858202489D800140892 /* GreenCoordinator.swift in Sources */,
+				C70A485A20248A5A00140892 /* UIViewController+Utils.swift in Sources */,
+				C70A484E202488BD00140892 /* YellowNavigator.swift in Sources */,
+				C70A48532024899300140892 /* GreenViewModel.swift in Sources */,
 				C70A481120247D3800140892 /* MainViewController.swift in Sources */,
 				C70A48392024802400140892 /* BaseViewModel.swift in Sources */,
 				C70A48452024835700140892 /* MainNavigator.swift in Sources */,
+				C70A484C2024886800140892 /* YellowViewModel.swift in Sources */,
+				C70A48512024897300140892 /* GreenViewController.swift in Sources */,
 				C70A480F20247D3800140892 /* AppDelegate.swift in Sources */,
 				C70A483B2024805A00140892 /* BaseView.swift in Sources */,
 				C70A483720247F4500140892 /* GlobalFunctions.swift in Sources */,
+				C70A4855202489A600140892 /* GreenNavigator.swift in Sources */,
 				C70A483D2024808B00140892 /* BaseViewController.swift in Sources */,
 				C70A483420247E9700140892 /* Coordinator.swift in Sources */,
 				C70A48432024832900140892 /* AppCoordinator.swift in Sources */,

@@ -40,14 +40,28 @@ class AppCoordinator: Coordinator {
 }
 
 
-// MARK: - MainMapNavigator
+// MARK: - MainNavigator
 
 extension AppCoordinator: MainNavigator {
     func openYellowProcess() {
-        
+        let viewModel = YellowViewModel()
+        viewModel.navigator = self
+        let viewController = YellowViewController(viewModel: viewModel)
+        mainNavigationController.pushViewController(viewController, animated: true)
     }
     
     func openGreenProcess() {
-        
+        let greenCoord = GreenCoordinator()
+        openChild(coordinator: greenCoord, parent: mainNavigationController, animated: true, forceCloseChild: false, completion: nil)
     }
 }
+
+
+// MARK: - YellowNavigator
+
+extension AppCoordinator: YellowNavigator {
+    func yellowFinished() {
+        mainNavigationController.popViewController(animated: true)
+    }
+}
+
