@@ -14,6 +14,13 @@ class GreenViewController: BaseViewController<GreenViewModel> {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = UIColor.yellow
+        view.backgroundColor = UIColor.green
+        
+        let finishBtn = UIBarButtonItem(title: "Finished", style: .done, target: self, action: #selector(finishButtonPressed))
+        navigationItem.rightBarButtonItem = finishBtn
+    }
+    
+    @objc private func finishButtonPressed() {
+        viewModel.finishButtonPressed()
     }
 }

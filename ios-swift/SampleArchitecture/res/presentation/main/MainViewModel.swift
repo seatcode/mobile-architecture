@@ -14,11 +14,11 @@ class MainViewModel: BaseViewModel {
     
     let mainText: String = "This is the main text provided by viewModel"
     
-    func firstButtonPressed() {
+    func yellowNavigationPressed() {
         navigator?.openYellowProcess()
     }
     
-    func secondButtonPressed() {
+    func greenNavigationPressed() {
         navigator?.openGreenProcess()
     }
 }

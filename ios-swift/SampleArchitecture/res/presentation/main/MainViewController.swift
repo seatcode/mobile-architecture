@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  MainViewController.swift
 //  SampleArchitecture
 //
 //  Created by Eli Kohen on 02/02/2018.
@@ -9,18 +9,30 @@
 import UIKit
 
 class MainViewController: BaseViewController<MainViewModel> {
-
+    
+    @IBOutlet weak var titleLabel: UILabel!
+    
+    init(viewModel: MainViewModel) {
+        super.init(viewModel: viewModel, nibName: "MainViewController")
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        view.backgroundColor = UIColor.red
-        // Do any additional setup after loading the view, typically from a nib.
-        
+        titleLabel.text = viewModel.mainText
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    
+    // MARK: - Actions
+    
+    @IBAction func yellowNavigationPressed(_ sender: Any) {
+        viewModel.yellowNavigationPressed()
+    }
+    
+    @IBAction func greenNavigationPressed(_ sender: Any) {
+        viewModel.greenNavigationPressed()
     }
 }
-

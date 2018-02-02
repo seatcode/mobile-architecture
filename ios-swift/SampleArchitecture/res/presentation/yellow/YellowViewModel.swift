@@ -11,4 +11,8 @@ import Foundation
 class YellowViewModel: BaseViewModel {
  
     weak var navigator: YellowNavigator?
+    
+    func finishButtonPressed() {
+        navigator?.yellowFinished()
+    }
 }

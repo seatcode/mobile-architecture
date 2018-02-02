@@ -15,5 +15,11 @@ class YellowViewController: BaseViewController<YellowViewModel> {
         super.viewDidLoad()
         
         view.backgroundColor = UIColor.yellow
+        let finishBtn = UIBarButtonItem(title: "Finished", style: .done, target: self, action: #selector(finishButtonPressed))
+        navigationItem.rightBarButtonItem = finishBtn
+    }
+    
+    @objc private func finishButtonPressed() {
+        viewModel.finishButtonPressed()
     }
 }

@@ -11,4 +11,8 @@ import Foundation
 class GreenViewModel: BaseViewModel {
     
     var navigator: GreenNavigator?
+    
+    func finishButtonPressed() {
+        navigator?.greenFinished()
+    }
 }
