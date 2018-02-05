@@ -75,25 +75,29 @@ abstract class Coordinator : ViewModelProvider.Factory {
         parent.startActivity(intent)
     }
 
-    fun onActivityDestroyed(act: Activity): Boolean {
-        val childResult = child?.onActivityDestroyed(act)
+    fun onActivityDestroyed(activity: Activity): Boolean {
+        val childResult = child?.onActivityDestroyed(activity)
         if (childResult != null && childResult) return true
 
-        val activity = act as? CoordinatedActivity<*> ?: return false
+        activity as? CoordinatedActivity<*> ?: return false
 
         val foundIndex = vmBindings.indexOfFirst { it.weakActivity?.get() == activity }
         if (foundIndex >= 0) {
             vmBindings.removeAt(foundIndex)
+            if (vmBindings.isEmpty()) {
+                onMainActivityDestroyed()
+            }
             return true
         }
+
         return false
     }
 
-    fun onActivityCreated(act: Activity, bundle: Bundle?): Boolean {
-        val childResult = child?.onActivityCreated(act, bundle)
+    fun onActivityCreated(activity: Activity, bundle: Bundle?): Boolean {
+        val childResult = child?.onActivityCreated(activity, bundle)
         if (childResult != null && childResult) return true
 
-        val activity = act as? CoordinatedActivity<*> ?: return false
+        activity as? CoordinatedActivity<*> ?: return false
 
         val binding = vmBindings.find { it.matchesActivity(activity) } ?: return false
         binding.bindActivity(activity, this)
@@ -113,14 +117,18 @@ abstract class Coordinator : ViewModelProvider.Factory {
         }
     }
 
-    open fun onActivityResumed(act: Activity) {
-        val activity = act as? CoordinatedActivity<*> ?: return
+    open fun onActivityResumed(activity: Activity) {
+        activity as? CoordinatedActivity<*> ?: return
         foregroundActivity = activity.weak()
     }
 
     abstract fun onMainActivityCreated()
 
     abstract fun onMainActivityLaunched()
+
+    open fun onMainActivityDestroyed() {
+        close()
+    }
 
 
     open fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">SampleArchitecture</string>
+    <string name="title_activity_yellow">YellowActivity</string>
 </resources>

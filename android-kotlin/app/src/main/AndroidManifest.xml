@@ -17,6 +17,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".presentation.yellow.YellowActivity"
+            android:label="@string/title_activity_yellow"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".presentation.green.GreenActivity"></activity>
     </application>
 
 </manifest>

@@ -1,17 +1,16 @@
 package io.metropolislab.samplearchitecture.application
 
 import android.app.Application
-import io.metropolislab.samplearchitecture.presentation.coordinator.MainCoordinator
 
 class SampleApplication: Application() {
 
-    lateinit var mainCoordinator: MainCoordinator
+    lateinit var appCoordinator: AppCoordinator
 
     override fun onCreate() {
         super.onCreate()
 
 
-        mainCoordinator = MainCoordinator()
-        mainCoordinator.openMain(this)
+        appCoordinator = AppCoordinator()
+        appCoordinator.openMain(this)
     }
 }
