@@ -65,7 +65,7 @@ abstract class Coordinator : ViewModelProvider.Factory {
         vmBindings.add(0, binding)
     }
 
-    fun <A, V> launchActivity(activityClass: Class<A>, viewModel: V) where A : CoordinatedActivity<V>, V : BaseViewModel {
+    protected fun <A, V> launchActivity(activityClass: Class<A>, viewModel: V) where A : CoordinatedActivity<V>, V : BaseViewModel {
         val binding = VMBinding(activityClass, viewModel)
         vmBindings.add(0, binding)
 
