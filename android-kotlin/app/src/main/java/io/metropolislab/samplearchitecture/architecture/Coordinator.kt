@@ -22,7 +22,7 @@ abstract class Coordinator : ViewModelProvider.Factory {
             if (vmBindings.isEmpty()) return null
             return vmBindings.find { it.weakActivity?.get() != null }?.weakActivity?.get()
         }
-    val topOrParentActivity: CoordinatedActivity<*>?
+    private val topOrParentActivity: CoordinatedActivity<*>?
         get() {
             return topActivity ?: parent?.get()?.topActivity
         }
@@ -48,7 +48,7 @@ abstract class Coordinator : ViewModelProvider.Factory {
         parent?.get()?.onChildClosed(this)
     }
 
-    fun onChildClosed(coordinator: Coordinator) {
+    private fun onChildClosed(coordinator: Coordinator) {
         if (child == coordinator) {
             child = null
         }
@@ -60,7 +60,7 @@ abstract class Coordinator : ViewModelProvider.Factory {
         coordinator.open()
     }
 
-    fun <A, V> setMainViewModel(activityClass: Class<A>, viewModel: V) where A : CoordinatedActivity<V>, V : BaseViewModel {
+    protected fun <A, V> setMainViewModel(activityClass: Class<A>, viewModel: V) where A : CoordinatedActivity<V>, V : BaseViewModel {
         val binding = VMBinding(activityClass, viewModel)
         vmBindings.add(0, binding)
     }
@@ -75,7 +75,7 @@ abstract class Coordinator : ViewModelProvider.Factory {
         parent.startActivity(intent)
     }
 
-    fun onActivityDestroyed(activity: Activity): Boolean {
+    internal fun onActivityDestroyed(activity: Activity): Boolean {
         val childResult = child?.onActivityDestroyed(activity)
         if (childResult != null && childResult) return true
 
@@ -93,7 +93,7 @@ abstract class Coordinator : ViewModelProvider.Factory {
         return false
     }
 
-    fun onActivityCreated(activity: Activity, bundle: Bundle?): Boolean {
+    internal fun onActivityCreated(activity: Activity, bundle: Bundle?): Boolean {
         val childResult = child?.onActivityCreated(activity, bundle)
         if (childResult != null && childResult) return true
 
@@ -110,7 +110,8 @@ abstract class Coordinator : ViewModelProvider.Factory {
         return true
     }
 
-    fun onActivityStarted(activity: Activity) {
+    internal fun onActivityStarted(activity: Activity) {
+        //QUESTION Why activity is not used?
         if (!mainActivityLaunched) {
             mainActivityLaunched = true
             onMainActivityLaunched()
