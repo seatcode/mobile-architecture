@@ -54,7 +54,7 @@ abstract class Coordinator : ViewModelProvider.Factory {
         }
     }
 
-    fun openChild(coordinator: Coordinator) {
+    protected fun openChild(coordinator: Coordinator) {
         coordinator.parent = this.weak()
         child = coordinator
         coordinator.open()
