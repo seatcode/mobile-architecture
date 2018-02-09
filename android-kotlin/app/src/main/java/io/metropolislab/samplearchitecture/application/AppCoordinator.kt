@@ -21,11 +21,11 @@ class AppCoordinator : Coordinator(), MainNavigator, YellowNavigator {
     }
 
     override fun onMainActivityCreated() {
-        // From this point on, you can use the `topActivity`
+        // From this point on you can use the `topActivity`
     }
 
     override fun onMainActivityLaunched() {
-        // From this point on, you know `topActivity` was already started
+        // From this point on you know `topActivity` was already started
     }
 
     //region MAIN NAVIGATOR ---------------------------------------------------------
