@@ -6,6 +6,6 @@ import java.lang.ref.WeakReference
 class GreenViewModel(val navigator: WeakReference<GreenNavigator>) : BaseViewModel() {
 
     fun onBackPressed() {
-        navigator?.get()?.greenDone()
+        navigator.get()?.greenDone()
     }
 }
