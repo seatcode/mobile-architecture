@@ -16,13 +16,13 @@ abstract class Coordinator : ViewModelProvider.Factory {
     private var parent: WeakReference<Coordinator>? = null
     private var child: Coordinator? = null
 
-    val topActivity: CoordinatedActivity<*>?
+    protected val topActivity: CoordinatedActivity<*>?
         get() {
             foregroundActivity?.get()?.let { return it }
             if (vmBindings.isEmpty()) return null
             return vmBindings.find { it.weakActivity?.get() != null }?.weakActivity?.get()
         }
-    private val topOrParentActivity: CoordinatedActivity<*>?
+    protected val topOrParentActivity: CoordinatedActivity<*>?
         get() {
             return topActivity ?: parent?.get()?.topActivity
         }
@@ -111,7 +111,6 @@ abstract class Coordinator : ViewModelProvider.Factory {
     }
 
     internal fun onActivityStarted(activity: Activity) {
-        //QUESTION Why activity is not used?
         if (!mainActivityLaunched) {
             mainActivityLaunched = true
             onMainActivityLaunched()
