@@ -15,8 +15,7 @@ class AppCoordinator : Coordinator(), MainNavigator, YellowNavigator {
 
 
     override fun open() {
-        val mainViewModel = MainViewModel()
-        mainViewModel.navigator = this.weak()
+        val mainViewModel = MainViewModel(this.weak())
 
         setMainViewModel(MainActivity::class.java, mainViewModel)
     }
@@ -32,8 +31,7 @@ class AppCoordinator : Coordinator(), MainNavigator, YellowNavigator {
     //region MAIN NAVIGATOR ---------------------------------------------------------
 
     override fun openYellow() {
-        val viewModel = YellowViewModel()
-        viewModel.navigator = this.weak()
+        val viewModel = YellowViewModel(this.weak())
         launchActivity(YellowActivity::class.java, viewModel)
     }
 
