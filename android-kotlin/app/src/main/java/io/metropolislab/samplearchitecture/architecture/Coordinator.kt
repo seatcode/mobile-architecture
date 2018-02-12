@@ -111,6 +111,7 @@ abstract class Coordinator : ViewModelProvider.Factory {
     }
 
     internal fun onActivityStarted(activity: Activity) {
+        activity as? CoordinatedActivity<*> ?: return
         if (!mainActivityLaunched) {
             mainActivityLaunched = true
             onMainActivityLaunched()
@@ -139,6 +140,9 @@ abstract class Coordinator : ViewModelProvider.Factory {
         child?.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
 
+    /**
+     * Create method of ViewModelProvider.Factory
+     */
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         val binding = vmBindings.find { it.matchesViewModel(modelClass) }
                 ?: return modelClass.newInstance()
