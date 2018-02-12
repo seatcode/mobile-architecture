@@ -5,8 +5,7 @@ import io.metropolislab.samplearchitecture.extensions.weak
 
 class GreenCoordinator : Coordinator(), GreenNavigator {
     override fun open() {
-        val viewModel = GreenViewModel()
-        viewModel.navigator = this.weak()
+        val viewModel = GreenViewModel(this.weak())
         launchActivity(GreenActivity::class.java, viewModel)
     }
 

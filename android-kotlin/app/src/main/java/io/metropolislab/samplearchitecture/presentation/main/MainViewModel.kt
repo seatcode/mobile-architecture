@@ -3,8 +3,7 @@ package io.metropolislab.samplearchitecture.presentation.main
 import io.metropolislab.samplearchitecture.architecture.BaseViewModel
 import java.lang.ref.WeakReference
 
-class MainViewModel: BaseViewModel() {
-    var navigator: WeakReference<MainNavigator>? = null
+class MainViewModel(val navigator: WeakReference<MainNavigator>): BaseViewModel() {
 
     val mainText = "This is the main text provided by viewModel"
 
@@ -12,10 +11,10 @@ class MainViewModel: BaseViewModel() {
     val greenButtonText = "Open with new Coordinator"
 
     fun yellowButtonPressed() {
-        navigator?.get()?.openYellow()
+        navigator.get()?.openYellow()
     }
 
     fun greenButtonPressed() {
-        navigator?.get()?.openGreen()
+        navigator.get()?.openGreen()
     }
 }
