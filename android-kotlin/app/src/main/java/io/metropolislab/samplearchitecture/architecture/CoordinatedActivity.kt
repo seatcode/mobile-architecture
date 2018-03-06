@@ -9,8 +9,10 @@ import java.lang.ref.WeakReference
 
 abstract class BaseViewModel : ViewModel() {
 
+    fun onBind() {}
     fun onActive(firstTime: Boolean) {}
     fun onInactive() {}
+    fun onUnBind() {}
 }
 
 abstract class CoordinatedActivity<V : BaseViewModel> : AppCompatActivity() {
@@ -52,5 +54,10 @@ abstract class CoordinatedActivity<V : BaseViewModel> : AppCompatActivity() {
     override fun onPause() {
         super.onPause()
         viewModel.onInactive()
+    }
+
+    override fun finish() {
+        super.finish()
+        weakCoordinator?.get()?.onActivityFinished(this)
     }
 }

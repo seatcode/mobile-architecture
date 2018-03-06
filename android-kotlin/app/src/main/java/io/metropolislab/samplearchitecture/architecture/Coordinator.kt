@@ -11,7 +11,7 @@ import io.metropolislab.samplearchitecture.extensions.weak
 import java.lang.ref.WeakReference
 
 
-abstract class Coordinator : ViewModelProvider.Factory {
+abstract class Coordinator {
 
     private var parent: WeakReference<Coordinator>? = null
     private var child: Coordinator? = null
@@ -75,15 +75,13 @@ abstract class Coordinator : ViewModelProvider.Factory {
         parent.startActivity(intent)
     }
 
-    internal fun onActivityDestroyed(activity: Activity): Boolean {
-        val childResult = child?.onActivityDestroyed(activity)
+    internal fun onActivityFinished(activity: CoordinatedActivity<*> ): Boolean {
+        val childResult = child?.onActivityFinished(activity)
         if (childResult != null && childResult) return true
-
-        activity as? CoordinatedActivity<*> ?: return false
 
         val foundIndex = vmBindings.indexOfFirst { it.weakActivity?.get() == activity }
         if (foundIndex >= 0) {
-            vmBindings.removeAt(foundIndex)
+            vmBindings.removeAt(foundIndex).unBindActivity()
             if (vmBindings.isEmpty()) {
                 onMainActivityDestroyed()
             }
@@ -139,36 +137,24 @@ abstract class Coordinator : ViewModelProvider.Factory {
     open fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
         child?.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
-
-    /**
-     * Create method of ViewModelProvider.Factory
-     */
-    override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        val binding = vmBindings.find { it.matchesViewModel(modelClass) }
-                ?: return modelClass.newInstance()
-        val viewModel = binding.viewModel ?: return modelClass.newInstance()
-        binding.viewModel = null
-        return viewModel as T
-    }
 }
 
-private class VMBinding<V : BaseViewModel, A : CoordinatedActivity<V>> constructor(private val actClass: Class<A>, viewModel: V) {
-    private val vmClass: Class<V> = viewModel.javaClass
-    var viewModel: V? = viewModel
+private class VMBinding<V : BaseViewModel, A : CoordinatedActivity<V>> constructor(private val actClass: Class<A>, val viewModel: V) {
     var weakActivity: WeakReference<CoordinatedActivity<*>>? = null
 
     fun matchesActivity(activity: CoordinatedActivity<*>): Boolean {
         return actClass.isAssignableFrom(activity.javaClass)
     }
 
-    fun <T : ViewModel> matchesViewModel(viewModelClass: Class<T>): Boolean {
-        return vmClass.isAssignableFrom(viewModelClass) && viewModel != null
+    fun unBindActivity() {
+        viewModel.onUnBind()
     }
 
+
     fun bindActivity(activity: CoordinatedActivity<*>, coordinator: Coordinator) {
-        val viewModel = ViewModelProviders.of(activity, coordinator).get(vmClass)
         weakActivity = activity.weak()
         activity.injectCoordination(coordinator, viewModel)
+        viewModel.onBind()
     }
 }
 
@@ -176,8 +162,8 @@ private class CoordinatorLifecycleCallbacks(mainCoordinator: Coordinator) : Appl
 
     private var coordinator: WeakReference<Coordinator> = mainCoordinator.weak()
 
-
     override fun onActivityPaused(activity: Activity) {
+        // NOT USED YET
     }
 
     override fun onActivityResumed(activity: Activity) {
@@ -189,13 +175,15 @@ private class CoordinatorLifecycleCallbacks(mainCoordinator: Coordinator) : Appl
     }
 
     override fun onActivityDestroyed(activity: Activity) {
-        coordinator.get()?.onActivityDestroyed(activity)
+        // NOT USED YET
     }
 
     override fun onActivitySaveInstanceState(activity: Activity, bundle: Bundle?) {
+        // NOT USED YET
     }
 
     override fun onActivityStopped(activity: Activity) {
+        // NOT USED YET
     }
 
     override fun onActivityCreated(activity: Activity, bundle: Bundle?) {
