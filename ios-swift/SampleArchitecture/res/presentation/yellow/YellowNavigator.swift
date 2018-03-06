@@ -8,6 +8,6 @@
 
 import Foundation
 
-protocol YellowNavigator: class {
+protocol YellowNavigator: Navigator {
     func yellowFinished()
 }

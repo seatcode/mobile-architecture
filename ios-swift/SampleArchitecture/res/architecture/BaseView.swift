@@ -8,9 +8,13 @@
 
 import UIKit
 
-class BaseView: UIView {
+protocol SubView: class  {
+    var active: Bool { get set }
+}
+
+class BaseView<V>: UIView, SubView where V: BaseViewModel {
     
-    private var viewModel: BaseViewModel
+    private(set) var viewModel: V
     
     var active: Bool = false {
         didSet {
@@ -30,45 +34,34 @@ class BaseView: UIView {
     
     // MARK: - Lifecycle
     
-    init(viewModel: BaseViewModel, frame: CGRect) {
+    init(viewModel: V, frame: CGRect) {
         self.viewModel = viewModel
         super.init(frame: frame)
-    }
-    
-    init?(viewModel: BaseViewModel, coder aDecoder: NSCoder) {
-        self.viewModel = viewModel
-        super.init(coder: aDecoder)
+        viewDidInit()
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func switchViewModel(_ viewModel: BaseViewModel) {
+    func switchViewModel(_ viewModel: V) {
         self.viewModel.active = false
         self.viewModel = viewModel
         self.viewModel.active = self.active
     }
     
     // MARK: - Internal methods
-    
-    internal func didBecomeActive(firstTime: Bool) {
-        
+
+    func viewDidInit() {
+        // implement in subclasses
     }
     
-    internal func didBecomeInactive() {
-        
+    func didBecomeActive(firstTime: Bool) {
+        // implement in subclasses
     }
     
-    
-    // MARK: - Helper methods
-    
-    func loadNibNamed(_ nibName: String, contentView: () -> UIView?) {
-        Bundle.main.loadNibNamed(nibName, owner: self, options: nil)
-        guard let view = contentView() else { return }
-        view.frame = bounds
-        view.autoresizingMask = [.flexibleHeight, .flexibleWidth]
-        addSubview(view)
+    func didBecomeInactive() {
+        // implement in subclasses
     }
 }
 

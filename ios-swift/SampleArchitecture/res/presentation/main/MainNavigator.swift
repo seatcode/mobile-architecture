@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol MainNavigator: class {
+protocol MainNavigator: Navigator {
     func openYellowProcess()
     func openGreenProcess()
 }
