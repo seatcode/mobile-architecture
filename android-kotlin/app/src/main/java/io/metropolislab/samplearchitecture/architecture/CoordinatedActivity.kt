@@ -9,7 +9,6 @@ import java.lang.ref.WeakReference
 
 abstract class BaseViewModel : ViewModel() {
 
-    fun onBind() {}
     fun onActive(firstTime: Boolean) {}
     fun onInactive() {}
     fun onUnBind() {}

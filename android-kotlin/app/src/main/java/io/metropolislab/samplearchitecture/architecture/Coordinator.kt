@@ -154,7 +154,6 @@ private class VMBinding<V : BaseViewModel, A : CoordinatedActivity<V>> construct
     fun bindActivity(activity: CoordinatedActivity<*>, coordinator: Coordinator) {
         weakActivity = activity.weak()
         activity.injectCoordination(coordinator, viewModel)
-        viewModel.onBind()
     }
 }
 
