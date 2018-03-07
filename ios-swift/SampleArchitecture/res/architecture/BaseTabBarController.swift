@@ -1,32 +1,21 @@
 //
-//  BaseViewController.swift
+//  BaseTabBarViewController.swift
 //  SampleArchitecture
 //
-//  Created by Eli Kohen on 02/02/2018.
-//  Copyright © 2018 Metropolis Lab. All rights reserved.
+//  Created by Eli Kohen on 08/02/2018.
+//  Copyright © 2018 Metropolis:Lab. All rights reserved.
 //
 
+import Foundation
 import UIKit
 
-class BaseViewController<V>: UIViewController, ViewControllerExtended where V: ViewModel {
-    
-    // VM & active
+class BaseTabBarController<V>: UITabBarController, ViewControllerExtended where V: BaseViewModel {
     private(set) var viewModel: V
-    private var subviews: [SubView]
     private var vcLifeCycle = ViewControllerLifeCycle()
-    
-    var active: Bool = false {
-        didSet {
-            subviews.forEach { $0.active = active }
-        }
-    }
-    
-    
-    // MARK: Lifecycle
+    var active: Bool = false
     
     init(viewModel: V, nibName: String? = nil) {
         self.viewModel = viewModel
-        self.subviews = []
         super.init(nibName: nibName, bundle: nil)
         vcLifeCycle.viewController = self
         vcLifeCycle.viewModel = viewModel
@@ -53,7 +42,6 @@ class BaseViewController<V>: UIViewController, ViewControllerExtended where V: V
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         vcLifeCycle.viewDidAppear(animated)
-        navigationController?.interactivePopGestureRecognizer?.delegate = self as? UIGestureRecognizerDelegate
     }
     
     override func viewDidLayoutSubviews() {
@@ -79,37 +67,5 @@ class BaseViewController<V>: UIViewController, ViewControllerExtended where V: V
     
     func viewWillDisappear(toBackground: Bool) {
         // implement in subclasses
-    }
-
-    
-    // MARK: > Subview handling
-    
-    func add<T>(subview: T) where T: UIView, T: SubView {
-        //Adding visually
-        if !view.subviews.contains(subview) {
-            view.addSubview(subview)
-        }
-        
-        //Adding to managed subviews
-        if !subviews.contains(where: { $0 === subview }) {
-            subviews.append(subview)
-            
-            //Set current state to subview
-            subview.active = self.active
-        }
-    }
-    
-    func remove<T>(subview: T) where T: UIView, T: SubView {
-        // Removing visually
-        if view.subviews.contains(subview) {
-            subview.removeFromSuperview()
-        }
-        
-        if subviews.contains(where: { $0 === subview }) {
-            subviews = subviews.filter { return $0 !== subview }
-            
-            //Set inactive state to subview
-            subview.active = false
-        }
     }
 }

@@ -8,6 +8,6 @@
 
 import Foundation
 
-protocol GreenNavigator: class {
+protocol GreenNavigator: Navigator {
     func greenFinished()
 }

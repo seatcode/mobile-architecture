@@ -6,7 +6,13 @@
 //  Copyright © 2018 Metropolis Lab. All rights reserved.
 //
 
-class BaseViewModel {
+protocol ViewModel: class {
+    var active: Bool { get set }
+}
+
+protocol Navigator: class { }
+
+class BaseViewModel: ViewModel {
     
     private var activeFirstTime = true
     var active: Bool = false {
@@ -24,11 +30,11 @@ class BaseViewModel {
     // MARK: - Internal methods
     
     func didBecomeActive(firstTime: Bool) {
-        
+        // implement in subclasses
     }
     
     func didBecomeInactive() {
-        
+        // implement in subclasses
     }
 }
 

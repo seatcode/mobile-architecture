@@ -9,8 +9,6 @@
 import UIKit
 import SafariServices
 
-
-
 protocol Coordinator: class {
     
     /// Possible child coordinator. Will be automatically set on `openChild` method
@@ -165,10 +163,11 @@ extension Coordinator {
 
 // MARK: - Private methods
 
-fileprivate extension Coordinator {
+extension Coordinator {
     
     func openAlertController(_ alert: UIViewController, animated: Bool = true, completion: (() -> Void)? = nil) {
-        guard presentedAlertController == nil, let viewController = self.viewController else { return }
+        guard let viewController = self.viewController else { return }
+        presentedAlertController?.dismissWithPresented(animated: false, completion: nil)
         
         presentedAlertController = alert
         viewController.present(alert, animated: animated, completion: completion)
